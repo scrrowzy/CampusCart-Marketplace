@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Campus Cart</title>
+  <link rel="stylesheet" href="home.css">
+  <meta name="referrer" content="no-referrer">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">Campus Cart</div>
+
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" onclick="toggleSellModal()">Sell</a>
+    </div>
+
+    <div class="right-nav">
+      <input type="text" placeholder="Search..." class="search" id="search">
+
+      <div class="cart-icon" onclick="toggleCart()">
+        <span>🛒</span> <span id="cartCount">0</span>
+      </div>
+
+      <span class="icon" onclick="toggleProfile()">👤</span>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <img src="https://static.vecteezy.com/system/resources/previews/027/050/010/original/work-activity-shop-to-get-a-discount-vector-illustration-png.png" class="hero-img">
+    <div class="hero-text">
+      <h1>Campus Cart.</h1>
+      <p>A Student Marketplace for Buying and Selling Within the Campus</p>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories">
+    <span onclick="filter(event,'all')" class="active">All</span>
+    <span onclick="filter(event,'clothing')">Clothing</span>
+    <span onclick="filter(event,'shoes')">Shoes</span>
+    <span onclick="filter(event,'uniform')">Uniform</span>
+    <span onclick="filter(event,'gadgets')">Gadgets</span>
+  </div>
+
+  <!-- PRODUCTS LIST -->
+  <div class="products" id="products"></div>
+
+  <!-- PROFILE POPUP -->
+  <div class="popup" id="profile">
+    <span class="close" onclick="toggleProfile()">✖</span>
+    <button class="edit-btn-top" onclick="enterEditMode()">Edit</button>
+
+    <h2>My Profile</h2>
+    <div class="profile-center">
+      <img id="profilePic" class="profile-pic" src="https://via.placeholder.com/140x140?text=User">
+      <h3 id="username"></h3>
+      <p id="email"></p>
+    </div>
+
+    <!-- My Products Section -->
+    <div id="myProducts">
+      <h3>My Products</h3>
+      <div id="userProductsList"></div>
+    </div>
+
+    <!-- VIEW MODE -->
+    <div id="viewMode">
+      <button class="logout" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- EDIT MODE -->
+    <div id="editMode" style="display: none;">
+      <div class="edit-section">
+        <label>Profile Picture</label>
+        <input type="file" id="profilePicInput" accept="image/*" onchange="previewImage(event)">
+      </div>
+      <div class="edit-section">
+        <label>Username</label>
+        <input type="text" id="editUsername" required>
+      </div>
+      <div class="edit-section">
+        <label>Email</label>
+        <input type="email" id="editEmail" required>
+      </div>
+      <div class="edit-buttons">
+        <button class="save-btn" onclick="saveProfile()">Save Changes</button>
+        <button class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+      </div>
+
+      <button id="deleteProductBtn" style="display:none; background:#ff4d4d; color:white; margin-top:10px; padding:8px 12px; border:none; border-radius:5px; cursor:pointer;">
+        Delete Selected Product
+      </button>
+    </div>
+  </div>
+
+  <!-- CART POPUP -->
+  <div class="popup" id="cart">
+    <span class="close" onclick="toggleCart()">✖</span>
+    <h2>My Cart</h2>
+    <div id="cartItems"></div>
+    <h3 id="cartTotal">Total: ₱0</h3>
+    <button id="buyNowBtn" style="margin-top:15px; width:100%; padding:12px; border:none; border-radius:10px; background:#28a745; color:white; font-weight:600; cursor:pointer; transition:.3s;" onclick="buyNow()">Buy Now</button>
+  </div>
+
+  <!-- SELL PRODUCT MODAL -->
+<!-- SELL PRODUCT MODAL - Replace your existing sell modal with this -->
+<div class="product-modal" id="sellModal">
+  <div class="product-box">
+    <span class="close" onclick="closeSellModal()">✖</span>
+    <h2>Sell a New Product</h2>
+
+    <form id="sellForm">
+      <div class="edit-section">
+        <label>Product Name</label>
+        <input type="text" id="sellName" required>
+      </div>
+      <div class="edit-section">
+        <label>Category</label>
+        <select id="sellCategory" required>
+          <option value="clothing">Clothing</option>
+          <option value="shoes">Shoes</option>
+          <option value="uniform">Uniform</option>
+          <option value="gadgets">Gadgets</option>
+        </select>
+      </div>
+      <div class="edit-section">
+        <label>Product Image</label>
+        <input type="file" id="sellImage" accept="image/*" required onchange="previewSellImage(event)">
+        <div style="margin-top: 10px; text-align: center;">
+          <img id="sellImagePreview" style="max-width: 200px; max-height: 200px; display: none; border-radius: 10px; border: 1px solid #ddd;">
+          <p style="color: #999; font-size: 12px; margin-top: 5px;">Max size: 5MB (JPEG, PNG, GIF)</p>
+        </div>
+      </div>
+      <div class="edit-section">
+        <label>Condition</label>
+        <select id="sellCondition" required>
+          <option value="Brand New">Brand New</option>
+          <option value="Like New">Like New</option>
+          <option value="Good">Good</option>
+          <option value="Fair">Fair</option>
+          <option value="Used">Used</option>
+        </select>
+      </div>
+      <div class="edit-section">
+        <label>Description</label>
+        <textarea id="sellDescription" rows="4" required placeholder="Describe your item..."></textarea>
+      </div>
+      <div class="edit-section">
+        <label>Price (₱)</label>
+        <input type="number" id="sellPrice" min="1" required>
+      </div>
+      <button type="submit" class="save-btn">Add Product</button>
+    </form>
+
+    <button type="button" id="sellDeleteBtn" class="delete-btn" style="display:none;">Delete Product</button>
+  </div>
+</div>
+
+  <!-- PRODUCT DETAILS MODAL -->
+  <div class="product-modal" id="productModal">
+    <div class="product-box">
+      <span class="close" onclick="closeProduct()">✖</span>
+
+      <img id="modalImg">
+      <h2 id="modalName"></h2>
+      <p id="modalCategory"></p>
+      <p id="modalCondition"></p>
+      <p id="modalPrice"></p>
+      <p id="modalDescription"></p>
+      <p id="modalSeller" style="font-size:14px;color:#666;"></p>
+
+      <button id="modalCartBtn">Add to Cart</button>
+      <button id="modalEditBtn" style="display:none;">Edit Product</button>
+      <button id="modalDeleteBtn" style="display:none;">Delete Product</button>
+    </div>
+  </div>
+
+<script src="config.js"></script>
+<script src="utils.js"></script>
+<script src="auth.js"></script>
+<script src="products.js"></script>  <!-- This must load BEFORE cart.js -->
+<script src="cart.js"></script>
+<script src="modals.js"></script>
+<script src="sell.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>

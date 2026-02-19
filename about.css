@@ -1,0 +1,46 @@
+/* About page specific styles */
+.about-section {
+  max-width: 900px;
+  margin: 80px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.about-section h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.about-section p {
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.about-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Hero section override for about page */
+.hero.about-hero {
+  min-height: 200px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-section {
+    margin: 60px 20px;
+  }
+  
+  .about-section h2 {
+    font-size: 28px;
+  }
+  
+  .about-section p {
+    font-size: 15px;
+  }
+}

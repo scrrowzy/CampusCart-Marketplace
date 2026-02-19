@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Cart - Login</title>
+<link rel="stylesheet" href="style.css">
+<meta name="referrer" content="no-referrer">
+</head>
+<body>
+<div class="container">
+  <div class="left">
+    <div class="login-card">
+      <h4 class="brand">Campus Cart</h4>
+      <p class="welcome">Welcome back!</p>
+      <h2>Log in</h2>
+      <form id="loginForm">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        <button type="submit">Log in →</button>
+      </form>
+      <p class="signup">
+        Don't have an account?
+        <a href="signup.html">Sign up</a>
+      </p>
+    </div>
+  </div>
+  <div class="right">
+    <img src="./illustration.png/logo.png" class="logo">
+    <img src="./illustration.png/login.png" class="main-img">
+  </div>
+</div>
+
+<script>
+localStorage.removeItem("loggedIn");
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const user = users.find(u => u.email === email && u.password === password);
+  
+  if (user) {
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("username", user.username);
+    localStorage.setItem("email", user.email);
+    localStorage.setItem("userId", user.id);
+    window.location.href = "home.html";
+  } else {
+    alert("Invalid email or password");
+  }
+});
+</script>
+</body>
+</html>

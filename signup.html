@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Cart - Sign Up</title>
+<link rel="stylesheet" href="style.css">
+<meta name="referrer" content="no-referrer">
+</head>
+<body>
+
+<div class="container signup-page">
+  <div class="left">
+    <img src="illustration.png/signup.png" class="main-img">
+  </div>
+  <div class="right">
+    <div class="login-card">
+      <h4 class="brand">Campus Cart</h4>
+      <p class="welcome">Create your account</p>
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <label>Username</label>
+        <input type="text" id="username" required>
+        <label>Email</label>
+        <input type="email" id="email" required>
+        <label>Password</label>
+        <input type="password" id="password" required>
+        <button type="submit">Sign Up →</button>
+      </form>
+      <p class="signup">
+        Already have an account?
+        <a href="index.html">Log in</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const username = document.getElementById("username").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  
+  if (users.some(u => u.email === email)) {
+    alert("Email already registered. Please use a different email or login.");
+    return;
+  }
+  
+  const newUser = {
+    id: Date.now().toString(),
+    username: username,
+    email: email,
+    password: password,
+    createdAt: new Date().toISOString()
+  };
+  
+  users.push(newUser);
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("tempEmail", email);
+  
+  // Initialize default products if they don't exist
+  if (!localStorage.getItem("products")) {
+    localStorage.setItem("products", JSON.stringify(DEFAULT_PRODUCTS));
+  }
+  
+  window.location.href = "success.html";
+});
+</script>
+</body>
+</html>

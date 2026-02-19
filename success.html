@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success - Campus Cart</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+  background: linear-gradient(135deg, #f6f6f6 0%, #f3e3df 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 20px;
+}
+
+.success-container {
+  background: white;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  padding: 50px 40px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.check-icon {
+  width: 100px;
+  height: 100px;
+  background: #ff6f4f;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 30px;
+  box-shadow: 0 10px 20px rgba(255, 111, 79, 0.3);
+}
+
+.check-icon span {
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+h1 {
+  color: #333;
+  font-size: 30px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.login-btn {
+  display: inline-block;
+  background: #ff6f4f;
+  color: white;
+  text-decoration: none;
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s;
+  box-shadow: 0 10px 20px rgba(255, 111, 79, 0.3);
+  border: none;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: #ff5733;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px rgba(255, 87, 51, 0.4);
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .success-container {
+    padding: 30px 20px;
+  }
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  .check-icon {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .check-icon span {
+    font-size: 48px;
+  }
+  
+  .login-btn {
+    padding: 14px 30px;
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="success-container">
+  <div class="check-icon">
+    <span>✓</span>
+  </div>
+  
+  <h1>Welcome to Campus Cart!</h1>
+  <p class="subtitle">Your account has been created successfully</p>
+  
+  <a href="index.html" class="login-btn">Go to Login</a>
+</div>
+
+<script>
+const tempEmail = localStorage.getItem("tempEmail");
+if (tempEmail) {
+  console.log('Account created for:', tempEmail);
+  localStorage.removeItem("tempEmail");
+}
+localStorage.removeItem("loggedIn");
+</script>
+
+</body>
+</html>
